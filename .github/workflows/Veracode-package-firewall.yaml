@@ -3,7 +3,7 @@ name: Verademo Default Workflow - Maven Build and Scan MultiJob
 on:
   workflow_dispatch: 
 env:
-  VERACODE_FIREWALL_TOKEN: ${{ secrets.VERACODE_FIREWALL_TOKEN }}
+  VERACODE_FIREWALL_TOKEN: ${{ secrets.VERACODE_PACKAGE_FIREWALL }}
   VERACODE_API_KEY_ID: ${{secrets.VERACODE_API_ID}}
   VERACODE_API_KEY_SECRET: ${{secrets.VERACODE_API_KEY}}
 jobs:
@@ -56,7 +56,7 @@ jobs:
       - name: initialize firewall
         run: | 
           npm config set replace-registry-host never
-          npm config set registry https://-:${{secrets.VERACODE_FIREWALL_TOKEN}}@npm.firewall.veracode.com/
+          npm config set registry https://-:${{secrets.VERACODE_PACKAGE_FIREWALL}}@npm.firewall.veracode.com/
           ls -la
           npm install 
 
