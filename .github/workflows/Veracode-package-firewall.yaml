@@ -58,7 +58,7 @@ jobs:
           npm config set replace-registry-host never
           npm config set registry https://-:${{secrets.VERACODE_PACKAGE_FIREWALL}}@npm.firewall.veracode.com/
           ls -la
-          npm install 
+          npm install .
 
         
      
