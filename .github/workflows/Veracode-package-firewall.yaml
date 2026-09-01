@@ -1,4 +1,4 @@
-name: Verademo Default Workflow - Maven Build and Scan MultiJob
+name: Veracode Package Firewall Demo
 
 on:
   workflow_dispatch: 
