@@ -7,9 +7,6 @@ on:
         type: string
         required: true
         default: 'bnreplah/reactvulna' # reactvulna will fail on bootstrap
-      firewallToken:
-        type: string
-        required: true
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -60,7 +57,7 @@ jobs:
       - name: initialize firewall
         run: | 
           npm config set replace-registry-host never
-          npm config set registry https://-:${{ inputs.firewallToken }}@npm.firewall.veracode.com/
+          npm config set registry https://-:${{ secrets.FIREWALL_TOKEN }}@npm.firewall.veracode.com/
           pwd
           ls -la
           npm install .
