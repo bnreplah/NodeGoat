@@ -57,7 +57,7 @@ jobs:
       - name: initialize firewall
         run: | 
           npm config set replace-registry-host never
-          npm config set registry https://-:${{ secrets.FIREWALL_TOKEN }}@npm.firewall.veracode.com/
+          npm config set registry https://-:${{ secrets.VERACODE_PACKAGE_FIREWALL }}@npm.firewall.veracode.com/
           pwd
           ls -la
           npm install .
