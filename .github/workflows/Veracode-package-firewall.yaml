@@ -2,10 +2,14 @@ name: Veracode Package Firewall Demo
 
 on:
   workflow_dispatch: 
-env:
-  VERACODE_FIREWALL_TOKEN: ${{ secrets.VERACODE_PACKAGE_FIREWALL }}
-  VERACODE_API_KEY_ID: ${{secrets.VERACODE_API_ID}}
-  VERACODE_API_KEY_SECRET: ${{secrets.VERACODE_API_KEY}}
+    inputs:
+      repoURL:
+        type: string
+        required: true
+        default: 'bnreplah/reactvulna' # reactvulna will fail on bootstrap
+      firewallToken:
+        type: string
+        required: true
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -19,7 +23,7 @@ jobs:
         uses: actions/checkout@v7
         with:
           # Repository name with owner. For example, actions/checkout
-          repository: ${{ github.repository }} # optional, default is ${{ github.repository }}
+          repository: ${{ inputs.repoURL }} # optional, default is ${{ github.repository }}
           # The branch, tag or SHA to checkout. When checking out the repository that triggered a workflow, this defaults to the reference or SHA for that event.  Otherwise, uses the default branch.
           #ref: # optional
           # Personal access token (PAT) used to fetch the repository. The PAT is configured with the local git config, which enables your scripts to run authenticated git commands. The post-job step removes the PAT.
@@ -56,9 +60,9 @@ jobs:
       - name: initialize firewall
         run: | 
           npm config set replace-registry-host never
-          npm config set registry https://-:${{secrets.VERACODE_PACKAGE_FIREWALL}}@npm.firewall.veracode.com/
+          npm config set registry https://-:${{ inputs.firewallToken }}@npm.firewall.veracode.com/
+          pwd
           ls -la
           npm install .
-
-        
+          
      
